@@ -12,18 +12,18 @@ else
 endif
 run: venv
 ifeq ($(OS),Windows_NT)
-	export FLASK_APP=trello-cards 
-	export TRELLO_CARDS_SETTINGS=settings.cfg 
+	export FLASK_APP={{cookiecutter.package_name.upper()}}
+	export {{cookiecutter.package_name.upper()}}_SETTINGS=settings.cfg 
 	venv\Scripts\flask run
 else
-	FLASK_APP=trello-cards TRELLO_CARDS_SETTINGS=../settings.cfg venv/bin/flask run
+	FLASK_APP={{cookiecutter.package_name.upper()}} {{cookiecutter.package_name.upper()}}_SETTINGS=../settings.cfg venv/bin/flask run
 endif
 
 test: venv
 ifeq ($(OS),Windows_NT)
-	TRELLO-CARDS_SETTINGS=../settings.cfg venv/Scripts/python -m unittest discover -s tests
+	{{cookiecutter.package_name.upper()}}_SETTINGS=../settings.cfg venv/Scripts/python -m unittest discover -s tests
 else
-	TRELLO-CARDS_SETTINGS=../settings.cfg venv/bin/python -m unittest discover -s tests
+	{{cookiecutter.package_name.upper()}}_SETTINGS=../settings.cfg venv/bin/python -m unittest discover -s tests
 endif
 
 sdist: venv test
